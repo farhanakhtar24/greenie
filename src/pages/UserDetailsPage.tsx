@@ -1,11 +1,11 @@
 "use client";
 import { getUserData } from "@/utils/QueryFunctions";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "@/components/SearchBar";
 import Spinner from "@/components/Spinner";
 import Modal from "@/components/Modal";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {};
 

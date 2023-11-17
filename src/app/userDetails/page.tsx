@@ -1,10 +1,10 @@
-import AccountCreationPage from "@/pages/AccountCreationPage";
+import UserDetailsPage from "@/pages/UserDetailsPage";
 import React from "react";
 
 type Props = {};
 
 const page = (props: Props) => {
-	return <AccountCreationPage />;
+	return <UserDetailsPage />;
 };
 
 export default page;

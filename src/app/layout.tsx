@@ -21,9 +21,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={`${inter.className} flex flex-col sm:flex-row w-screen h-screen`}>
+				<Toaster />
+				<Navbar />
 				<ReactQueryContext>
-					<Toaster />
-					<Navbar />
 					<div className="flex-1">{children}</div>
 				</ReactQueryContext>
 			</body>

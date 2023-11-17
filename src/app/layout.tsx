@@ -19,7 +19,8 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className} flex w-screen h-screen`}>
+			<body
+				className={`${inter.className} flex flex-col sm:flex-row w-screen h-screen`}>
 				<ReactQueryContext>
 					<Toaster />
 					<Navbar />

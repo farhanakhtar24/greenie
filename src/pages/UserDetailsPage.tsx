@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "@/components/SearchBar";
+import Spinner from "@/components/Spinner";
+import Modal from "@/components/Modal";
 
 type Props = {};
 
@@ -41,6 +43,9 @@ const columns: GridColDef[] = [
 
 const UserDetailsPage = (props: Props) => {
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+	const [selectedUser, setSelectedUser] = useState<userDataInterface | null>(
+		null
+	);
 	const { data: userData, isLoading: isLoadingUserData } = useQuery({
 		queryKey: ["userDetails", 100, 0],
 		queryFn: getUserData,
@@ -57,7 +62,12 @@ const UserDetailsPage = (props: Props) => {
 		},
 	});
 
-	if (isLoadingUserData) return <div>Loading...</div>;
+	if (isLoadingUserData)
+		return (
+			<div className="w-full h-full flex justify-center items-center">
+				<Spinner />
+			</div>
+		);
 
 	const filteredData = debouncedSearchTerm
 		? userData.filter(
@@ -70,32 +80,45 @@ const UserDetailsPage = (props: Props) => {
 		: userData;
 
 	return (
-		<div className="w-full h-full p-10 flex flex-col justify-center items-center gap-3">
-			<SearchBar
-				debouncedSearchTerm={debouncedSearchTerm}
-				setDebouncedSearchTerm={setDebouncedSearchTerm}
-			/>
-			<div className="h-[70vh] w-[85%]">
-				{!isLoadingUserData && (
-					<DataGrid
-						aria-label="user details"
-						loading={isLoadingUserData}
-						className="w-full"
-						rows={filteredData}
-						columns={columns}
-						initialState={{
-							pagination: {
-								paginationModel: { page: 0, pageSize: 10 },
-							},
-						}}
-						pageSizeOptions={[10, 20, 50]}
-						checkboxSelection
-						onRowClick={(e) => {
-							console.log("e", e.row);
-						}}
-						filterDebounceMs={500}
-					/>
-				)}
+		<div
+			className={`w-full h-full p-10 flex justify-center items-center relative`}>
+			{selectedUser && (
+				<Modal
+					selectedUser={selectedUser}
+					setSelectedUser={setSelectedUser}
+				/>
+			)}
+			{selectedUser && (
+				<div className="absolute w-full h-full opacity-50 bg-white z-10"></div>
+			)}
+			<div
+				className={`w-full flex flex-col justify-center items-center gap-3`}>
+				<SearchBar
+					debouncedSearchTerm={debouncedSearchTerm}
+					setDebouncedSearchTerm={setDebouncedSearchTerm}
+				/>
+				<div className="h-[70vh] w-[85%]">
+					{!isLoadingUserData && (
+						<DataGrid
+							aria-label="user details"
+							loading={isLoadingUserData}
+							className="w-full"
+							rows={filteredData}
+							columns={columns}
+							initialState={{
+								pagination: {
+									paginationModel: { page: 0, pageSize: 10 },
+								},
+							}}
+							pageSizeOptions={[10, 20, 50]}
+							// checkboxSelection
+							onRowClick={(e) => {
+								setSelectedUser(e.row as userDataInterface);
+							}}
+							disableRowSelectionOnClick
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

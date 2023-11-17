@@ -137,7 +137,7 @@ const AccountCreationPage = (props: Props) => {
 					</form>
 				</div>
 			</div>
-			<div className="w-[15vw]"></div>
+			<div className="w-[15vw] hidden sm:block"></div>
 		</div>
 	);
 };

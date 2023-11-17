@@ -1,4 +1,4 @@
-import UserDetailsPage from "@/pages/UserDetailsPage";
+import UserDetailsPage from "@/app/pages/UserDetailsPage";
 import React from "react";
 
 type Props = {};

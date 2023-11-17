@@ -1,4 +1,4 @@
-import { userDataInterface } from "@/pages/UserDetailsPage";
+import { userDataInterface } from "@/app/pages/UserDetailsPage";
 import React from "react";
 import { ImCross as Cross } from "react-icons/im";
 

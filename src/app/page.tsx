@@ -1,4 +1,4 @@
-import AccountCreationPage from "@/pages/AccountCreationPage";
+import AccountCreationPage from "@/app/pages/AccountCreationPage";
 import React from "react";
 
 type Props = {};
